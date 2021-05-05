@@ -1,0 +1,54 @@
+
+# Q2 (a): How many Orders were shipped by Speedy Express in total ?
+
+# Q2 (a) (Method 1:)
+SELECT Shippers.ShipperID, COUNT(Orders.OrderID)
+FROM Orders INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+GROUP BY Orders.ShipperID;
+
+
+# Q2 (a) (Method 2:)
+SELECT Shippers.ShipperID, COUNT(Orders.OrderID)
+FROM Orders INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+WHERE Orders.ShipperID = 1;
+
+## Ans for Q2 (a): There is a total of 54 Orders by ShipperID 1 which is Speedy Express
+
+
+#-------------------------------------------------------------------------------------------------------------------
+
+# Q2 (b): What is the last name of the employee with the most orders ?
+
+SELECT Employees.EmployeeID, Employees.LastName, COUNT(Orders.OrderID) AS Num_Orders
+FROM Employees INNER JOIN Orders on Employees.EmployeeID = Orders.EmployeeID
+GROUP BY Employees.EmployeeID
+ORDER BY Num_Orders DESC
+LIMIT 1;
+
+## Ans for Q2 (b): The Last Name of the Employee is "Peacock" and the EmployeeID number is "4".
+
+#-------------------------------------------------------------------------------------------------------------------
+
+# Q2 (c) What Product was ordered the most by customers in Germany ? 
+
+SELECT Customers.Country, COUNT(OrderDetails.ProductID) AS Num_Orders, OrderDetails.ProductID, Products.ProductName
+FROM Customers
+JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+JOIN OrderDetails ON Orders.OrderID = OrderDetails.OrderID
+JOIN Products ON OrderDetails.ProductID = Products.ProductID
+WHERE Customers.Country = 'Germany'
+GROUP BY OrderDetails.ProductID
+ORDER BY Num_Orders DESC
+LIMIT 1;
+
+## Ans for Q2(c): The Product ID is 31 with the product name "Gorgonzola Telino". The Number of orders is 5.
+
+
+
+
+
+
+
+
+
+
